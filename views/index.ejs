@@ -9,5 +9,27 @@
 	</head>
 	<body>
 		<h1>Rick & Morty Collection</h1>
+        <div class="cards">
+            <%characters.forEach((perso) => {%>
+                <div class="card">
+                    <img src="<%=perso.image%>" alt="<%=perso.name%>">
+                    <div class="content">
+                        <h2><%=perso.name%></h2>
+                        <p class="subtitle"><span class='circle <% if (perso.status == 'Alive') {%>green<%} else if (perso.status == 'Dead') {%>red<%}%>'></span><%=perso.status%> | <%=perso.species%></p>
+                        <p class='desc'>Last known location:</p>
+                        <a href='/location/<% if (perso.location.name !== 'unknown') {perso.location.url.match(/\d+/)}%>'><%=perso.location.name%></a>
+                        <p class="desc">Number of episodes:</p>
+                        <p><%=perso.episode.length%></p>
+                        <p class='desc'>First Appearence: </p>
+                        <a href='/episode/<%=perso.episode[0].match(/\d+/)%>'><%=episodes[perso.episode[0].match(/\d+/)-1].name%></a>
+                    </div>
+                </div>
+            <%})%>
+        </div>
+        <form action="/pages" method='POST'>
+            <button type="submit" name="type" value="previous" <% if (page == 1) {%>disabled<%}%>>&lt;</button>
+            Page <%=page%>/<%=count%>
+            <button type="submit" name="type" value="next" <% if (page == count) {%>disabled<%}%>>&gt;</button>
+        </form>
 	</body>
 </html>

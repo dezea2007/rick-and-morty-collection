@@ -1,0 +1,105 @@
+@import url("https://fonts.googleapis.com/css2?family=Creepster&display=swap");
+
+body {
+	background-color: #272b33;
+	color: white;
+}
+
+h1 {
+	text-align: center;
+	font-family: "Creepster", cursive;
+	color: #1daecb;
+	font-size: 50px;
+	text-shadow: 3px 3px #bbbb4a;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+	transition: color 0.25s;
+}
+
+a:hover {
+	color: orange;
+}
+
+.cards {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 30px;
+	place-items: center;
+}
+
+.card {
+	background-color: #3c3e44;
+	display: flex;
+	min-width: 200px;
+	max-width: 700px;
+	width: 100%;
+	border-radius: 20px;
+	box-shadow: 1px 1px 5px black;
+}
+
+.card img {
+	width: auto;
+	border-radius: 20px 0 0 20px;
+	aspect-ratio: 1;
+}
+
+.content {
+	padding: 20px;
+}
+
+h2 {
+	margin-bottom: 0px;
+}
+
+p {
+	margin: 0;
+}
+
+.subtitle {
+	color: orange;
+}
+
+.circle {
+	display: inline-block;
+	height: 10px;
+	aspect-ratio: 1;
+	border-radius: 50%;
+	margin: auto 5px;
+	background-color: white;
+}
+
+.green {
+	background-color: #55cc44;
+}
+
+.red {
+	background-color: #d63d2e;
+}
+
+.desc {
+	font-size: 14px;
+	margin-top: 1rem;
+	color: #9e9e98;
+}
+
+form {
+	margin: 20px auto;
+	text-align: center;
+}
+
+button {
+	width: 30px;
+	height: 30px;
+	border: none;
+	border-radius: 50%;
+	background-color: #3c3e44;
+	color: white;
+	cursor: pointer;
+}
+
+button:disabled {
+	cursor: not-allowed;
+}
