@@ -9,7 +9,7 @@ body {
 h1 {
 	font-family: "Creepster", cursive;
 	color: #1daecb;
-	font-size: 50px;
+	font-size: 70px;
 	text-shadow: 3px 3px #bbbb4a;
 }
 
@@ -119,17 +119,18 @@ button:disabled {
 	cursor: not-allowed;
 }
 
-.select-form {
+.search-form {
 	display: flex;
 	align-items: center;
 	height: 100%;
+	justify-content: center;
+	gap: 0 10px;
 }
 
 .submit {
 	width: 36px;
 	height: 36px;
 	padding: 10px;
-	transform: translateY(3px);
 }
 
 .submit .search {
@@ -143,4 +144,33 @@ select {
 	min-width: 150px;
 	max-width: 200px;
 	width: 100%;
+}
+
+@media (max-width: 1098px) {
+	.cards {
+		gap: 50px;
+	}
+
+	.card {
+		flex-direction: column;
+	}
+
+	.card img {
+		border-radius: 20px 20px 0 0;
+	}
+}
+
+@media (max-width: 600px) {
+	h1 {
+		font-size: 45px;
+	}
+
+	.cards {
+		grid-template-columns: 1fr;
+	}
+
+	.search-form {
+		flex-direction: column;
+		gap: 10px 0;
+	}
 }
