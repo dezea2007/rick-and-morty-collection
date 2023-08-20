@@ -19,6 +19,8 @@ app.get("/", async (req, res) => {
 	try {
 		if (lastPath != req.path) {
 			page = 1;
+			name = "";
+			status = "";
 		}
 		lastPath = req.path;
 		const characters = await axios.get(
@@ -79,7 +81,7 @@ app.get("/location/:id", async (req, res) => {
 		lastPath = req.path;
 		const result = await axios.get(`${API_URL}/location/${req.params.id}`);
 		let count = result.data.residents.length % 20;
-		if (0 < count < 10) {
+		if (0 < count && count < 10) {
 			count = Math.floor(result.data.residents.length / 20) + 1;
 		} else {
 			count = Math.floor(result.data.residents.length / 20);
@@ -134,7 +136,8 @@ app.get("/episode/:id", async (req, res) => {
 		lastPath = req.path;
 		const result = await axios.get(`${API_URL}/episode/${req.params.id}`);
 		let count = result.data.characters.length % 20;
-		if (0 < count < 10) {
+		if (0 < count && count < 10) {
+			console.log(count);
 			count = Math.floor(result.data.characters.length / 20) + 1;
 		} else {
 			count = Math.floor(result.data.characters.length / 20);
@@ -177,6 +180,37 @@ app.get("/episode/:id", async (req, res) => {
 		page = 1;
 		res.render("index.ejs", {
 			error: "There is no episode that match with your search",
+		});
+	}
+});
+
+app.get("/character/:id", async (req, res) => {
+	try {
+		if (lastPath != req.path) {
+			page = 1;
+		}
+		lastPath = req.path;
+		const result = await axios.get(`${API_URL}/character/${req.params.id}`);
+		let episodes = "";
+		result.data.episode.forEach((episode) => {
+			episodes += episode.match(/\d+/) + ",";
+		});
+		const episodesRes = await axios.get(`${API_URL}/episode/${episodes}`);
+		res.render("character.ejs", {
+			name: result.data.name,
+			status: result.data.status,
+			species: result.data.species,
+			location: result.data.location,
+			numEpisodes: result.data.episode.length,
+			image: result.data.image,
+			episodes: episodesRes.data,
+		});
+	} catch (err) {
+		name = "";
+		status = "";
+		page = 1;
+		res.render("index.ejs", {
+			error: "There is no character that match with your search",
 		});
 	}
 });

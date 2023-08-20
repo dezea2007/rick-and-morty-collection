@@ -3,7 +3,7 @@
         <div class="card">
             <img src="<%=perso.image%>" alt="<%=perso.name%>">
             <div class="content">
-                <h2><%=perso.name%></h2>
+                <h2><a href="/character/<%=perso.id%>"><%=perso.name%></a></h2>
                 <p class="subtitle"><span class='circle <% if (perso.status == 'Alive') {%>green<%} else if (perso.status == 'Dead') {%>red<%}%>'></span><%=perso.status%> | <%=perso.species%></p>
                 <p class='desc'>Last known location:</p>
                 <a href="/location/<%=perso.location.url.match(/\d+/)%>"><%=perso.location.name%></a>

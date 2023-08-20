@@ -1,0 +1,17 @@
+<%-include('partials/header.ejs')%>
+<h2><%=name%></h2>
+<p class="subtitle"><span class='circle <% if (status == 'Alive') {%>green<%} else if (status == 'Dead') {%>red<%}%>'></span><%=status%> | <%=species%></p>
+<img class="char-img" src=<%=image%> alt=<%=name%> />
+<p class='desc'>Last known location:</p>
+<a href="/location/<%=location.url.match(/\d+/)%>"><%=location.name%></a>
+<p class="desc">Number of episodes:</p>
+<p><%=numEpisodes%></p>
+<p class='desc'>First Appearence: </p>
+<a href="/episode/<%=episodes[0].id%>"><%=episodes[0].name%></a>
+<h2>All episodes</h2>
+<ul>
+    <%episodes.forEach(episode => { %>
+        <li><a href="/episode/<%=episode.id%>"><%=episode.name%></a></li>
+    <%})%>
+</ul>
+<a href="/">See all the characters</a>
