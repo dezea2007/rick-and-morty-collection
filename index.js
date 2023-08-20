@@ -126,6 +126,61 @@ app.get("/location/:id", async (req, res) => {
 	}
 });
 
+app.get("/episode/:id", async (req, res) => {
+	try {
+		if (lastPath != req.path) {
+			page = 1;
+		}
+		lastPath = req.path;
+		const result = await axios.get(`${API_URL}/episode/${req.params.id}`);
+		let count = result.data.characters.length % 20;
+		if (0 < count < 10) {
+			count = Math.floor(result.data.characters.length / 20) + 1;
+		} else {
+			count = Math.floor(result.data.characters.length / 20);
+		}
+		let characters = [];
+		let limit = result.data.characters.length;
+		if (count >= 1 && page < count) {
+			limit = page * 20;
+		}
+		for (let i = (page - 1) * 20; i < limit; i++) {
+			characters.push(result.data.characters[i].match(/\d+/));
+		}
+		characters = characters.join(",");
+		const charactersRes = await axios.get(
+			`${API_URL}/character/${characters}`
+		);
+		let array = charactersRes.data;
+		if (page == count && result.data.characters.length % 20 == 1) {
+			array = [charactersRes.data];
+		}
+		const page1 = await axios.get(`${API_URL}/episode`);
+		const page2 = await axios.get(`${API_URL}/episode/?page=2`);
+		const page3 = await axios.get(`${API_URL}/episode/?page=3`);
+		res.render("episode.ejs", {
+			name: result.data.name,
+			air_date: result.data.air_date,
+			episode: result.data.episode,
+			episodes: [
+				...page1.data.results,
+				...page2.data.results,
+				...page3.data.results,
+			],
+			characters: array,
+			count,
+			page,
+		});
+	} catch (err) {
+		name = "";
+		status = "";
+		page = 1;
+		res.render("index.ejs", {
+			error: "There is no episode that match with your search",
+		});
+	}
+});
+
 app.listen(port, () => {
 	console.log("Listening on port " + port);
 });

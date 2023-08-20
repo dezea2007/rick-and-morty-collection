@@ -10,7 +10,7 @@
                 <p class="desc">Number of episodes:</p>
                 <p><%=perso.episode.length%></p>
                 <p class='desc'>First Appearence: </p>
-                <a><%=episodes[perso.episode[0].match(/\d+/)-1].name%></a>
+                <a href="/episode/<%=perso.episode[0].match(/\d+/)%>"><%=episodes[perso.episode[0].match(/\d+/)-1].name%></a>
             </div>
         </div>
     <%})%>
