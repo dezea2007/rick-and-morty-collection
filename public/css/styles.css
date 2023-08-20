@@ -96,6 +96,15 @@ form {
 	text-align: center;
 }
 
+input[type="number"] {
+	background-color: inherit;
+	border: none;
+	outline: none;
+	color: inherit;
+	width: 40px;
+	font-size: 1rem;
+}
+
 button {
 	width: 30px;
 	height: 30px;

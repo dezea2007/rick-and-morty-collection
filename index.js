@@ -7,6 +7,8 @@ const port = 3000;
 const API_URL = "https://rickandmortyapi.com/api";
 
 let page = 1;
+let name = "";
+let status = "";
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -14,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get("/", async (req, res) => {
 	try {
 		const characters = await axios.get(
-			`${API_URL}/character/?page=${page}`
+			`${API_URL}/character/?page=${page}&name=${name}&status=${status}`
 		);
 		const page1 = await axios.get(`${API_URL}/episode`);
 		const page2 = await axios.get(`${API_URL}/episode/?page=2`);
@@ -30,7 +32,12 @@ app.get("/", async (req, res) => {
 			page,
 		});
 	} catch (err) {
-		res.status(404).send(err.message);
+		name = "";
+		status = "";
+		page = 1;
+		res.render("index.ejs", {
+			error: "There is not characters that match with your search",
+		});
 	}
 });
 
@@ -38,11 +45,22 @@ app.get("/search", (req, res) => {
 	res.render("search.ejs");
 });
 
+app.post("/search", (req, res) => {
+	page = 1;
+	name = req.body.name.toLowerCase();
+	if (req.body.status !== "no") {
+		status = req.body.status;
+	}
+	res.redirect("/");
+});
+
 app.post("/pages", (req, res) => {
 	if (req.body.type == "next") {
 		page += 1;
-	} else {
+	} else if (req.body.type == "previous") {
 		page -= 1;
+	} else {
+		page = parseInt(req.body.page);
 	}
 	res.redirect("/");
 });

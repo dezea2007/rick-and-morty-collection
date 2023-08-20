@@ -1,5 +1,9 @@
 <%-include('partials/header.ejs')%>
         <a href="/search"><img class="search" src="img/search.svg" alt="search"></a>
+        <% if(locals.error) { %>
+            <p><%=error%></p>
+            <a href="/">See all characters</a>
+        <% } else { %>
         <div class="cards">
             <%characters.forEach((perso) => {%>
                 <div class="card">
@@ -19,8 +23,10 @@
         </div>
         <form action="/pages" method='POST'>
             <button type="submit" name="type" value="previous" <% if (page == 1) {%>disabled<%}%>>&lt;</button>
-            Page <%=page%>/<%=count%>
+            Page <input type='number' name='page' max=<%=count%> min=1 value=<%=page%>>/<%=count%>
+            <button type="submit">Go</button>
             <button type="submit" name="type" value="next" <% if (page == count) {%>disabled<%}%>>&gt;</button>
         </form>
+        <%}%>
 	</body>
 </html>
