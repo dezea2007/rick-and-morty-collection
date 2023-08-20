@@ -1,0 +1,14 @@
+<%-include('partials/header.ejs')%>
+<h2>Search</h2>
+<form class="search-form" action="/search" method="post">
+	<input name="name" type="text" placeholder="Enter the name of your perso" />
+	<select name="status" id="status">
+		<option selected disabled>Select the status</option>
+		<option value="alive">Alive</option>
+		<option value="dead">Dead</option>
+		<option value="unknown">Unknown</option>
+	</select>
+	<button type="submit" class="submit">
+		<img class="search" src="img/search.svg" alt="search" />
+	</button>
+</form>

@@ -34,6 +34,10 @@ app.get("/", async (req, res) => {
 	}
 });
 
+app.get("/search", (req, res) => {
+	res.render("search.ejs");
+});
+
 app.post("/pages", (req, res) => {
 	if (req.body.type == "next") {
 		page += 1;

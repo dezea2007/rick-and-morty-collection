@@ -3,10 +3,10 @@
 body {
 	background-color: #272b33;
 	color: white;
+	text-align: center;
 }
 
 h1 {
-	text-align: center;
 	font-family: "Creepster", cursive;
 	color: #1daecb;
 	font-size: 50px;
@@ -23,11 +23,17 @@ a:hover {
 	color: orange;
 }
 
+.search {
+	width: 32px;
+	margin: 0 0 20px;
+}
+
 .cards {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	gap: 30px;
 	place-items: center;
+	text-align: left;
 }
 
 .card {
@@ -102,4 +108,30 @@ button {
 
 button:disabled {
 	cursor: not-allowed;
+}
+
+.select-form {
+	display: flex;
+	align-items: center;
+	height: 100%;
+}
+
+.submit {
+	width: 36px;
+	height: 36px;
+	padding: 10px;
+	transform: translateY(3px);
+}
+
+.submit .search {
+	margin-bottom: 0;
+	width: 100%;
+	height: 100%;
+}
+.search-form input,
+select {
+	padding: 10px;
+	min-width: 150px;
+	max-width: 200px;
+	width: 100%;
 }
