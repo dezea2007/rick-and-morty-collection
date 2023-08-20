@@ -1,32 +1,10 @@
 <%-include('partials/header.ejs')%>
-        <a href="/search"><img class="search" src="img/search.svg" alt="search"></a>
+        <a href="/search"><img class="search" src="/img/search.svg" alt="search"></a>
         <% if(locals.error) { %>
             <p><%=error%></p>
             <a href="/">See all characters</a>
         <% } else { %>
-        <div class="cards">
-            <%characters.forEach((perso) => {%>
-                <div class="card">
-                    <img src="<%=perso.image%>" alt="<%=perso.name%>">
-                    <div class="content">
-                        <h2><%=perso.name%></h2>
-                        <p class="subtitle"><span class='circle <% if (perso.status == 'Alive') {%>green<%} else if (perso.status == 'Dead') {%>red<%}%>'></span><%=perso.status%> | <%=perso.species%></p>
-                        <p class='desc'>Last known location:</p>
-                        <a><%=perso.location.name%></a>
-                        <p class="desc">Number of episodes:</p>
-                        <p><%=perso.episode.length%></p>
-                        <p class='desc'>First Appearence: </p>
-                        <a><%=episodes[perso.episode[0].match(/\d+/)-1].name%></a>
-                    </div>
-                </div>
-            <%})%>
-        </div>
-        <form action="/pages" method='POST'>
-            <button type="submit" name="type" value="previous" <% if (page == 1) {%>disabled<%}%>>&lt;</button>
-            Page <input type='number' name='page' max=<%=count%> min=1 value=<%=page%>>/<%=count%>
-            <button type="submit">Go</button>
-            <button type="submit" name="type" value="next" <% if (page == count) {%>disabled<%}%>>&gt;</button>
-        </form>
+            <%-include('partials/cards.ejs')%>
         <%}%>
 	</body>
 </html>
