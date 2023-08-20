@@ -215,6 +215,6 @@ app.get("/character/:id", async (req, res) => {
 	}
 });
 
-app.listen(port, () => {
+app.listen(port || process.env.PORT, () => {
 	console.log("Listening on port " + port);
 });
